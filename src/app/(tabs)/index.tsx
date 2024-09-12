@@ -4,8 +4,7 @@ import SwipeCard from '@/src/components/SwipeCard';
 
 interface User {
   name: { first: string; last: string };
-  picture: { medium: string };
-  cell?: string;
+  picture: { medium: string, large: string };
 }
 
 const Linkup: React.FC = () => {
@@ -63,8 +62,11 @@ const Linkup: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
-    paddingTop: 20, // Adjust padding or margin as needed
+    margin: 0,
+    padding: 0,
+    height: '100%',
+    // alignItems: 'flex-start'
+    justifyContent: 'flex-start'
   },
 });
 

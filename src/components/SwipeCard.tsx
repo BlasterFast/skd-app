@@ -1,3 +1,4 @@
+import { mainThemeColor } from '@/constants/Colors';
 import React from 'react';
 import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
@@ -5,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface User {
   name: { first: string; last: string };
-  picture: { medium: string };
+  picture: { medium: string, large: string };
   cell?: string;
 }
 
@@ -17,39 +18,41 @@ interface SwipeCardProps {
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
 
 const SwipeCard: React.FC<SwipeCardProps> = ({ data }) => {
-    const cards = data || [];
+  const cards = data || [];
   return (
     <SafeAreaView style={styles.container}>
-      <Swiper
-        cards={cards}
-        renderCard={(card) => {
-          // Check if card is defined and has required properties
-          if (!card || !card.picture || !card.name) {
+      <View style={styles.swiperContainer}>
+        <Swiper
+          cardStyle={styles.card}
+          cards={cards}
+          renderCard={(card) => {
+            // Check if card is defined and has required properties
+            if (!card || !card.picture || !card.name) {
+              return (
+                <View style={styles.card}>
+                  <Text style={styles.name}>No Data Available</Text>
+                </View>
+              );
+            }
+
             return (
               <View style={styles.card}>
-                <Text style={styles.name}>No Data Available</Text>
+                <Image source={{ uri: card.picture.medium }} style={styles.image} />
+                <Text style={styles.name}>{card.name.first} {card.name.last}</Text>
               </View>
             );
-          }
-
-          return (
-            <View style={styles.card}>
-              <Image source={{ uri: card.picture.medium }} style={styles.image} />
-              <Text style={styles.name}>{card.name.first} {card.name.last}</Text>
-              {/* {card.cell && <Text style={styles.cell}>{card.cell}</Text>} Optional field */}
-            </View>
-          );
-        }}
-        onSwiped={(cardIndex) => {
-          console.log('Swiped card index:', cardIndex);
-        }}
-        onSwipedAll={() => {
-          console.log('All cards swiped');
-        }}
-        cardIndex={0}
-        backgroundColor={'#f5f5f5'}
-        stackSize={3}
-      />
+          }}
+          onSwiped={(cardIndex) => {
+            console.log('Swiped card index:', cardIndex);
+          }}
+          onSwipedAll={() => {
+            console.log('All cards swiped');
+          }}
+          cardIndex={0}
+          backgroundColor={'#f5f5f5'}
+          stackSize={3}
+        />
+      </View>
     </SafeAreaView>
   );
 };
@@ -59,29 +62,26 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f5f5f5',
+    width: viewportWidth,
+    paddingRight: viewportWidth * .107 // This fixes the position of the card being to right. Can't find out why. Crap fix.
+  },
+  swiperContainer: {
+    width: viewportWidth,
+    height: viewportHeight,
   },
   card: {
-    flex: 1,
+    width: viewportWidth, 
+    height: viewportHeight * 0.8, 
     borderRadius: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: viewportWidth - 40, // Adjust based on design
-    height: viewportHeight * 0.6, // Adjust based on design
+    backgroundColor: mainThemeColor,
   },
   image: {
     width: '100%',
-    height: '70%', // Adjust based on design
+    height: '90%', // This determines how much of the description space we see on the bottom of images.
     borderRadius: 10,
   },
   name: {
     fontSize: 18,
-    marginVertical: 10,
     fontWeight: 'bold',
   },
   cell: {
