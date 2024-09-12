@@ -6,7 +6,7 @@ import Entypo from '@expo/vector-icons/Entypo';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 import { mainThemeColor } from '@/constants/Colors';
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
+import { TabBarIcon } from '@/src/components/navigation/TabBarIcon';
 
 export default function TabLayout() {
 

@@ -1,17 +1,19 @@
 import { View, Text, FlatList, SafeAreaView } from 'react-native';
 import React, { useEffect, useState } from 'react';
+import UserCard from '../../components/userCard';
 
 const Linkup = () => {
-  const [usersData, setUsersData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // const [usersData, setUsersData] = useState([]);
+  const [usersData, setUsersData] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
 
       try {
-        const response = await fetch('https://randomuser.me/api/?results=5');
+        const response = await fetch('https://randomuser.me/api/?results=20&gender=female');
         if (!response.ok) {
           throw new Error('Network Response was not okay...');
         }
@@ -48,14 +50,14 @@ const Linkup = () => {
 
   const renderItem = ({ item }) => {
     return (
-      <View>
-        <Text>{item.name.first} {item.name.last}</Text>
-        <Text>{item.email}</Text> 
-      </View>
+      <UserCard
+      firstName={item.name.first}
+      lastName={item.name.last}
+      email={item.email}
+      picture={item.picture}
+      />
     );
   };
-
-  console.log(JSON.stringify(usersData));
 
   return (
     <SafeAreaView>
