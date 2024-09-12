@@ -1,30 +1,35 @@
-import { View, Text, FlatList, SafeAreaView } from 'react-native';
+import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import UserCard from '../../components/userCard';
+import SwipeCard from '@/src/components/SwipeCard';
 
-const Linkup = () => {
-  // const [usersData, setUsersData] = useState([]);
-  const [usersData, setUsersData] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+interface User {
+  name: { first: string; last: string };
+  picture: { medium: string };
+  cell?: string;
+}
+
+const Linkup: React.FC = () => {
+  const [usersData, setUsersData] = useState<User[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-
       try {
-        const response = await fetch('https://randomuser.me/api/?results=20&gender=female');
+        const response = await fetch('https://randomuser.me/api/?results=200&gender=female');
         if (!response.ok) {
           throw new Error('Network Response was not okay...');
         }
         const jsonData = await response.json();
-        setUsersData(jsonData.results); // Set the users data to the results array
+        setUsersData(jsonData.results);
       } catch (err) {
         if (err instanceof Error) {
           console.log(err.message);
-          setError(err); // Set the error state
+          setError(err);
         }
       } finally {
+        console.log('test')
         setIsLoading(false);
       }
     };
@@ -34,7 +39,7 @@ const Linkup = () => {
 
   if (isLoading) {
     return (
-      <SafeAreaView>
+      <SafeAreaView style={styles.container}>
         <Text>Loading...</Text>
       </SafeAreaView>
     );
@@ -42,32 +47,25 @@ const Linkup = () => {
 
   if (error) {
     return (
-      <SafeAreaView>
+      <SafeAreaView style={styles.container}>
         <Text>Error: {error.message}</Text>
       </SafeAreaView>
     );
   }
 
-  const renderItem = ({ item }) => {
-    return (
-      <UserCard
-      firstName={item.name.first}
-      lastName={item.name.last}
-      email={item.email}
-      picture={item.picture}
-      />
-    );
-  };
-
   return (
-    <SafeAreaView>
-      <FlatList
-        data={usersData}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.login.uuid} 
-      />
-    </SafeAreaView>
+    <View style={styles.container}>
+      <SwipeCard data={usersData} />
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+    paddingTop: 20, // Adjust padding or margin as needed
+  },
+});
 
 export default Linkup;
