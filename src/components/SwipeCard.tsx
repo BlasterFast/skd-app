@@ -37,7 +37,7 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ data }) => {
 
             return (
               <View style={styles.card}>
-                <Image source={{ uri: card.picture.medium }} style={styles.image} />
+                <Image source={{ uri: card.picture.large }} style={styles.image} />
                 <Text style={styles.name}>{card.name.first} {card.name.last}</Text>
               </View>
             );
@@ -63,17 +63,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: viewportWidth,
-    paddingRight: viewportWidth * .107 // This fixes the position of the card being to right. Can't find out why. Crap fix.
+    paddingRight: viewportWidth * .107, // This fixes the position of the caxrd being to right. Can't find out why. Crap fix.
   },
   swiperContainer: {
     width: viewportWidth,
     height: viewportHeight,
+    backgroundColor: '#000'
   },
   card: {
     width: viewportWidth, 
     height: viewportHeight * 0.8, 
     borderRadius: 10,
-    backgroundColor: mainThemeColor,
+    backgroundColor: "#000",
   },
   image: {
     width: '100%',

@@ -60,7 +60,7 @@ export default function TabLayout() {
 
 const screenOptions = {
   tabBarStyle: {
-    backgroundColor: '#fff',
+    backgroundColor: '#000',
     height: 100,
   },
   tabBarItemStyle: {
@@ -68,5 +68,5 @@ const screenOptions = {
     borderRadius: 10,
   },
   tabBarActiveTintColor: '#f1c40f',
-  tabBarInactiveTintColor: '#000',
+  tabBarInactiveTintColor: '#fff',
 };

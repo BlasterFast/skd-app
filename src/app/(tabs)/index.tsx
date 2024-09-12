@@ -65,8 +65,10 @@ const styles = StyleSheet.create({
     margin: 0,
     padding: 0,
     height: '100%',
-    // alignItems: 'flex-start'
-    justifyContent: 'flex-start'
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center', 
+    backgroundColor: '#000', // This black means that when we swipe left or right, the exposed background is black.
   },
 });
 
