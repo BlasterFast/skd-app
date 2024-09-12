@@ -5,6 +5,7 @@ const linkup = () => {
   return (
     <View>
       <Text>This is the main LinkUp Match where you match on people. App opens here.</Text>
+      <Text>test</Text>
     </View>
   )
 }

@@ -20,6 +20,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <MaterialIcons name="electric-bolt" size={24} color={color} />,
         }}
       />
+
       <Tabs.Screen
         name="likes"
         options={{
@@ -27,10 +28,13 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <Entypo name="heart" size={24} color={color} />,
         }}
       />
+
       <Tabs.Screen
         name="index"
         options={{
           title: 'LinkUp',
+          headerStyle: { backgroundColor: '#000' },
+          headerTitleStyle: { color: mainThemeColor },
           tabBarIcon: ({ color }) => <AntDesign name="pluscircleo" size={24} color={color} />,
         }}
       />
@@ -42,6 +46,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <Ionicons name="chatbubble-ellipses-sharp" size={24} color={color} />
         }}
       />
+
       <Tabs.Screen
         name="profile"
         options={{
