@@ -63,22 +63,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: viewportWidth,
-    paddingRight: viewportWidth * .107, // This fixes the position of the caxrd being to right. Can't find out why. Crap fix.
+    // paddingRight: viewportWidth * .107, // This fixes the position of the caxrd being to right. Can't find out why. Crap fix.
   },
   swiperContainer: {
     width: viewportWidth,
-    height: viewportHeight,
-    backgroundColor: '#000'
+    height: viewportHeight * 0.9,
+    backgroundColor: '#fff'
   },
   card: {
-    width: viewportWidth, 
-    height: viewportHeight * 0.8, 
+    // width: viewportWidth,  // CAUTION This line, and the line below it was making the card hang to the right. Keep for caution.
+    // height: viewportHeight * 0.9, 
     borderRadius: 10,
     backgroundColor: "#000",
+    // paddingRight: viewportWidth * .107 // this centers the cards instead of them heading right.But it leaves a white line on the card.
   },
   image: {
     width: '100%',
-    height: '90%', // This determines how much of the description space we see on the bottom of images.
+    height: '100%', // This determines how much of the description space we see on the bottom of images.
     borderRadius: 10,
   },
   name: {

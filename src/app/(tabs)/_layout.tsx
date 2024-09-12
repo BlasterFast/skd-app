@@ -33,8 +33,8 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'LinkUp',
-          headerStyle: { backgroundColor: '#000' },
-          headerTitleStyle: { color: mainThemeColor },
+          // headerStyle: { backgroundColor: '#000' },
+          // headerTitleStyle: { color: mainThemeColor },
           tabBarIcon: ({ color }) => <AntDesign name="pluscircleo" size={24} color={color} />,
         }}
       />
@@ -60,13 +60,16 @@ export default function TabLayout() {
 
 const screenOptions = {
   tabBarStyle: {
-    backgroundColor: '#000',
+    backgroundColor: '#fff',
     height: 100,
   },
   tabBarItemStyle: {
     margin: 5,
     borderRadius: 10,
   },
-  tabBarActiveTintColor: '#f1c40f',
-  tabBarInactiveTintColor: '#fff',
+  tabBarLabelStyle: {
+    color: "#000"
+  },
+  tabBarActiveTintColor: mainThemeColor,
+  tabBarInactiveTintColor: '#00',
 };

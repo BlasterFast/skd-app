@@ -66,8 +66,8 @@ const styles = StyleSheet.create({
     padding: 0,
     height: '100%',
     width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center', 
+    // alignItems: 'center',
+    // justifyContent: 'center', 
     backgroundColor: '#000', // This black means that when we swipe left or right, the exposed background is black.
   },
 });
