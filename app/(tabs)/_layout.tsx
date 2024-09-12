@@ -1,37 +1,67 @@
 import { Tabs } from 'expo-router';
-import React from 'react';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import Entypo from '@expo/vector-icons/Entypo';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
+import { mainThemeColor } from '@/constants/Colors';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
+    <Tabs screenOptions={screenOptions}>
       <Tabs.Screen
-        name="index"
+        name="sizzle"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
-          ),
+          title: 'Sizzle',
+          tabBarIcon: ({ color }) => <MaterialIcons name="electric-bolt" size={24} color={color} />,
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="likes"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
-          ),
+          title: 'Likes',
+          tabBarIcon: ({ color }) => <Entypo name="heart" size={24} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: 'LinkUp',
+          tabBarIcon: ({ color }) => <AntDesign name="pluscircleo" size={24} color={color} />,
+        }}
+      />
+
+      <Tabs.Screen
+        name="messages"
+        options={{
+          title: 'Messages',
+          tabBarIcon: ({ color }) => <Ionicons name="chatbubble-ellipses-sharp" size={24} color={color} />
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ color }) => <FontAwesome5 name="user-alt" size={24} color={color} />
         }}
       />
     </Tabs>
   );
 }
+
+const screenOptions = {
+  tabBarStyle: {
+    backgroundColor: '#fff',
+    height: 100,
+  },
+  tabBarItemStyle: {
+    margin: 5,
+    borderRadius: 10,
+  },
+  tabBarActiveTintColor: '#f1c40f',
+  tabBarInactiveTintColor: '#000',
+};
