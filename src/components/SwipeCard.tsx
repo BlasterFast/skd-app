@@ -73,9 +73,9 @@ const styles = StyleSheet.create({
   card: {
     // width: viewportWidth,  // CAUTION This line, and the line below it was making the card hang to the right. Keep for caution.
     // height: viewportHeight * 0.9, 
+    // paddingRight: viewportWidth * .107 // this centers the cards instead of them heading right.But it leaves a white line on the card.
     borderRadius: 10,
     backgroundColor: "#000",
-    // paddingRight: viewportWidth * .107 // this centers the cards instead of them heading right.But it leaves a white line on the card.
   },
   image: {
     width: '100%',
