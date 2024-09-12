@@ -1,8 +1,8 @@
-import { View, Text } from 'react-native';
+import { View, Text, FlatList, SafeAreaView } from 'react-native';
 import React, { useEffect, useState } from 'react';
 
-const linkup = () => {
-  const [usersData, setUsersData] = useState(null);
+const Linkup = () => {
+  const [usersData, setUsersData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -11,15 +11,16 @@ const linkup = () => {
       setIsLoading(true);
 
       try {
-        const response = await fetch('https://randomuser.me/api/');
+        const response = await fetch('https://randomuser.me/api/?results=5');
         if (!response.ok) {
           throw new Error('Network Response was not okay...');
         }
         const jsonData = await response.json();
-        setUsersData(jsonData);
+        setUsersData(jsonData.results); // Set the users data to the results array
       } catch (err) {
-        if (err instanceof Error) { 
+        if (err instanceof Error) {
           console.log(err.message);
+          setError(err); // Set the error state
         }
       } finally {
         setIsLoading(false);
@@ -31,27 +32,40 @@ const linkup = () => {
 
   if (isLoading) {
     return (
-      <View>
+      <SafeAreaView>
         <Text>Loading...</Text>
-      </View>
-    )
+      </SafeAreaView>
+    );
   }
 
   if (error) {
     return (
-      <View>
+      <SafeAreaView>
         <Text>Error: {error.message}</Text>
-      </View>
-    )
+      </SafeAreaView>
+    );
   }
 
-  console.log(usersData);
+  const renderItem = ({ item }) => {
+    return (
+      <View>
+        <Text>{item.name.first} {item.name.last}</Text>
+        <Text>{item.email}</Text> 
+      </View>
+    );
+  };
+
+  console.log(JSON.stringify(usersData));
 
   return (
-    <View>
-      <Text>This is the main LinkUp Match where you match on people. App opens here.</Text>
-    </View>
-  )
-}
+    <SafeAreaView>
+      <FlatList
+        data={usersData}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.login.uuid} 
+      />
+    </SafeAreaView>
+  );
+};
 
-export default linkup
+export default Linkup;
