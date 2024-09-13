@@ -4,7 +4,8 @@ import SwipeCard from '@/src/components/SwipeCard';
 
 interface User {
   name: { first: string; last: string };
-  photo?: string
+  photo?: string,
+  location: {city: string}
 }
 
 // Just here for generating better photos during dev

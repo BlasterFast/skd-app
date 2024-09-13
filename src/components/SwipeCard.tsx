@@ -2,10 +2,11 @@ import { mainThemeColor } from '@/constants/Colors';
 import React, { useRef } from 'react';
 import { View, Text, Image, StyleSheet, Dimensions, ImageBackground } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native'; // not from gesture handler. Doesn't fire if you do imort from there.
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import Foundation from '@expo/vector-icons/Foundation';
 
 
 interface User {
@@ -13,6 +14,7 @@ interface User {
   cell?: string;
   photo?: any,
   dob: { age: string }
+  location: { city: string }
 }
 
 interface SwipeCardProps {
@@ -43,52 +45,54 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ data }) => {
   };
   return (
     <GestureHandlerRootView style={styles.rootContainer}>
-    <SafeAreaView style={styles.container}>
-      <View style={styles.swiperContainer}>
-        <Swiper
-        ref={swiperRef}
-          // cardStyle={styles.card}
-          cards={cards}
-          renderCard={(card) => {
-            // Check if card is defined and has required properties
-            if (!card || !card.photo || !card.name) {
+      <SafeAreaView style={styles.container}>
+        <View style={styles.swiperContainer}>
+          <Swiper
+            ref={swiperRef}
+            // cardStyle={styles.card}
+            cards={cards}
+            renderCard={(card) => {
+              // Check if card is defined and has required properties
+              if (!card || !card.photo || !card.name) {
+                return (
+                  <View style={styles.card}>
+                    <Text style={styles.name}>No Data Available</Text>
+                  </View>
+                );
+              }
+              console.log(card.photo);
               return (
-                <View style={styles.card}>
-                  <Text style={styles.name}>No Data Available</Text>
+                <View style={styles.imgbgconatiner}>
+                  <ImageBackground source={card.photo} style={styles.image} imageStyle={{ borderRadius: 10 }}>
+                    <View style={styles.textCard}>
+                      <Text style={styles.name}>{card.name.first}, {card.dob.age}</Text>
+                      <Text style={styles.city}>{card.location.city}</Text>
+                    </View>
+
+                    <View style={styles.btnContainer}>
+                      <TouchableOpacity style={styles.buttonLeft} onPress={handleSwipeLeft}>
+                        <Foundation name="x" size={35} color="red" />
+                      </TouchableOpacity>
+                      <TouchableOpacity style={styles.buttonRight} onPress={handleSwipeRight}>
+                        <AntDesign name="heart" size={30} color="green" />
+                      </TouchableOpacity>
+                    </View>
+                  </ImageBackground>
                 </View>
               );
-            }
-            console.log(card.photo);
-            return (
-              <View style={styles.imgbgconatiner}>
-                <ImageBackground source={card.photo} style={styles.image} imageStyle={{ borderRadius: 10 }}>
-                  <View style={styles.textCard}>
-                    <Text style={styles.name}>{card.name.first}, {card.dob.age}</Text>
-                  </View>
-                  
-                    <TouchableOpacity style={styles.button} onPress={handleSwipeLeft}>
-                      <AntDesign name="heart" size={35} color="black" /> 
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={handleSwipeRight}>
-                      <AntDesign name="heart" size={35} color="black" /> 
-                    </TouchableOpacity>
-                  
-                </ImageBackground>
-              </View>
-            );
-          }}
-          onSwiped={(cardIndex) => {
-            console.log('Swiped card index:', cardIndex);
-          }}
-          onSwipedAll={() => {
-            console.log('All cards swiped');
-          }}
-          cardIndex={0}
-          backgroundColor={'#f5f5f5'}
-          stackSize={3}
-        />
-      </View>
-    </SafeAreaView>
+            }}
+            onSwiped={(cardIndex) => {
+              console.log('Swiped card index:', cardIndex);
+            }}
+            onSwipedAll={() => {
+              console.log('All cards swiped');
+            }}
+            cardIndex={0}
+            backgroundColor={'#f5f5f5'}
+            stackSize={3}
+          />
+        </View>
+      </SafeAreaView>
     </GestureHandlerRootView>
   );
 };
@@ -135,10 +139,17 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     color: '#fff',
-    justifyContent: 'flex-end',
+    // justifyContent: 'flex-end',
     width: viewportWidth * 0.8,
     marginBottom: viewportHeight * .001,
     // alignItems: 'center'
+  },
+  city: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+    width: viewportWidth * 0.8,
+    marginBottom: viewportHeight * 0.03
   },
   btnContainer: {
     // backgroundColor: '#fff',
@@ -149,10 +160,19 @@ const styles = StyleSheet.create({
     // justifyContent: 'space-between'
     width: viewportWidth * 0.7,
   },
-  button: {
-    backgroundColor: 'tan',
+  buttonLeft: {
+    backgroundColor: 'rgba(0, 0, 0, 0.9)',
     borderRadius: 100,
-    padding: 3,
+    // padding: 3,
+    height: viewportHeight * 0.09,
+    width: viewportWidth * 0.2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonRight: {
+    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+    borderRadius: 100,
+    padding: 9,
     height: viewportHeight * 0.09,
     width: viewportWidth * 0.2,
     justifyContent: 'center',
