@@ -8,6 +8,8 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Foundation from '@expo/vector-icons/Foundation';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { LinearGradient } from 'expo-linear-gradient';
+
 
 
 interface User {
@@ -65,7 +67,13 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ data }) => {
               return (
                 <View style={styles.imgbgconatiner}>
                   <ImageBackground source={card.photo} style={styles.image} imageStyle={{ borderRadius: 10 }}>
-                    
+                    <LinearGradient
+                      // Background Linear Gradient
+                      colors={['rgba(0,0,0,1)', 'transparent']}
+                      style={styles.background}
+                      start={{ x: 0, y: 1 }}  
+                      end={{ x: 0, y: 0 }} 
+                    />
                     <View style={styles.textCard}>
                       <Text style={styles.name}>{card.name.first}, {card.dob.age}</Text>
                       <View style={styles.location}>
@@ -73,7 +81,7 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ data }) => {
                         <Text style={styles.city}>{card.location.city}</Text>
                       </View>
                     </View>
-                
+
                     <View style={styles.btnContainer}>
                       <TouchableOpacity style={styles.buttonLeft} onPress={handleSwipeLeft}>
                         <Foundation name="x" size={35} color="red" />
@@ -109,6 +117,15 @@ const styles = StyleSheet.create({
   },
   imgbgconatiner: {
     height: '90%'
+  },
+
+  // This background is for the gradient.
+  background: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    height: '50%',
   },
   container: {
     flex: 1,
@@ -153,14 +170,15 @@ const styles = StyleSheet.create({
   location: {
     flexDirection: 'row',
     paddingLeft: viewportWidth * 0.05,
+    marginBottom: viewportHeight * 0.01
   },
   city: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
     width: viewportWidth * 0.8,
-    marginBottom: viewportHeight * 0.03,
-    marginLeft: viewportWidth * 0.01
+    marginBottom: viewportHeight * 0.015,
+    paddingLeft: viewportWidth * 0.02
   },
   btnContainer: {
     // backgroundColor: '#fff',
@@ -172,7 +190,7 @@ const styles = StyleSheet.create({
     width: viewportWidth * 0.7,
   },
   buttonLeft: {
-    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+    backgroundColor: '#181818',
     borderRadius: 100,
     // padding: 3,
     height: viewportHeight * 0.09,
@@ -181,19 +199,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonRight: {
-    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+    backgroundColor: '#181818',
     borderRadius: 100,
     padding: 9,
     height: viewportHeight * 0.09,
     width: viewportWidth * 0.2,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  info: {
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    marginBottom: viewportHeight * .05,
-    marginTop: 0,
-    width: viewportWidth * 0.85,
   },
   cell: {
     fontSize: 14,
