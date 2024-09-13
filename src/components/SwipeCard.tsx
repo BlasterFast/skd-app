@@ -1,12 +1,10 @@
 import { mainThemeColor } from '@/constants/Colors';
-import React from 'react';
+import React, { useRef } from 'react';
 import { View, Text, Image, StyleSheet, Dimensions, ImageBackground } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-
-
 import AntDesign from '@expo/vector-icons/AntDesign';
 
 
@@ -21,15 +19,34 @@ interface SwipeCardProps {
   data: User[];
 }
 
-
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
+
+
 
 const SwipeCard: React.FC<SwipeCardProps> = ({ data }) => {
   const cards = data || [];
+
+  const swiperRef = useRef<Swiper>(null);
+
+  const handleSwipeLeft = () => {
+    if (swiperRef.current) {
+      swiperRef.current.swipeLeft();
+      console.log('Pressed left');
+    }
+  };
+
+  const handleSwipeRight = () => {
+    if (swiperRef.current) {
+      swiperRef.current.swipeRight();
+      console.log('Pressed right');
+    }
+  };
   return (
+    <GestureHandlerRootView style={styles.rootContainer}>
     <SafeAreaView style={styles.container}>
       <View style={styles.swiperContainer}>
         <Swiper
+        ref={swiperRef}
           // cardStyle={styles.card}
           cards={cards}
           renderCard={(card) => {
@@ -48,14 +65,14 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ data }) => {
                   <View style={styles.textCard}>
                     <Text style={styles.name}>{card.name.first}, {card.dob.age}</Text>
                   </View>
-                  <GestureHandlerRootView style={styles.btnContainer}>
-                    <TouchableOpacity style={styles.button} >
+                  
+                    <TouchableOpacity style={styles.button} onPress={handleSwipeLeft}>
                       <AntDesign name="heart" size={35} color="black" /> 
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} >
+                    <TouchableOpacity style={styles.button} onPress={handleSwipeRight}>
                       <AntDesign name="heart" size={35} color="black" /> 
                     </TouchableOpacity>
-                  </GestureHandlerRootView>
+                  
                 </ImageBackground>
               </View>
             );
@@ -72,10 +89,14 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ data }) => {
         />
       </View>
     </SafeAreaView>
+    </GestureHandlerRootView>
   );
 };
 
 const styles = StyleSheet.create({
+  rootContainer: {
+    flex: 1
+  },
   imgbgconatiner: {
     height: '90%'
   },
@@ -135,7 +156,7 @@ const styles = StyleSheet.create({
     height: viewportHeight * 0.09,
     width: viewportWidth * 0.2,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   info: {
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
