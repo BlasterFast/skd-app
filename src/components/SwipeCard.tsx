@@ -7,7 +7,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 interface User {
   name: { first: string; last: string };
   cell?: string;
-  photo?: any
+  photo?: any,
+  dob: {age: string }
 }
 
 interface SwipeCardProps {
@@ -41,7 +42,8 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ data }) => {
                 <Text style={styles.name}>{card.name.first} {card.name.last}</Text> */}
                 <ImageBackground source={card.photo} style={styles.image} imageStyle={{ borderRadius: 10 }}>
                   <View style={styles.textCard}>
-                    <Text style={styles.name}>{card.name.first} {card.name.last}</Text>
+                    <Text style={styles.name}>{card.name.first}, {card.dob.age}</Text>
+                    {/* <Text style={styles.info}>This is general information about user. Maybe add emojis as well.</Text> */}
                   </View>
                 </ImageBackground>
               </View>
@@ -83,28 +85,37 @@ const styles = StyleSheet.create({
     // width: viewportWidth,  // CAUTION This line, and the line below it was making the card hang to the right. Keep for caution.
     // height: viewportHeight * 0.9, 
     // paddingRight: viewportWidth * .1, // this centers the cards instead of them heading right.But it leaves a white line on the card.
-    backgroundColor: "transparant", // this makes it so I don't see anything under user images on swipe. I used to see the backgroundColor, white, tan, whatever.
-    height: viewportHeight * 1.2,
+    // backgroundColor: "transparant", // this makes it so I don't see anything under user images on swipe. I used to see the backgroundColor, white, tan, whatever.
+    // height: viewportHeight * 1.2,
     // width: viewportWidth * 1.2
   },
   image: {
+    alignItems: 'center', // this is what centers the user info on the image.
     flex: 1,
     width: '100%',
     height: '100%', // This determines how much of the description space we see on the bottom of images.
   },
   textCard: {
     flex: 1,
-    alignContent: 'flex-start',
+    alignItems: 'center',
+    alignContent: 'center',
     // backgroundColor: 'tan',
     justifyContent: 'flex-end',
-
   },
   name: {
-    fontSize: 18,
+    fontSize: 28,
     fontWeight: 'bold',
-    height: '12%',
+    color: '#fff',
     justifyContent: 'flex-end',
-     backgroundColor: 'rgba(0, 0, 0, 0.5)'
+    width: viewportWidth * 0.8,
+    marginBottom: viewportHeight * .1,
+    // alignItems: 'center'
+  },
+  info: {
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    marginBottom: viewportHeight * .05,
+    marginTop: 0,
+    width: viewportWidth * 0.85,
   },
   cell: {
     fontSize: 14,
