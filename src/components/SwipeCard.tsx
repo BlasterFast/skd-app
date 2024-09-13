@@ -36,12 +36,13 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ data }) => {
             }
             console.log(card.photo);
             return (
-              <View style={styles.card}>
+              <View style={styles.imgbgconatiner}>
                 {/* <Image source={{ uri: card.picture.large }} style={styles.image} />
                 <Text style={styles.name}>{card.name.first} {card.name.last}</Text> */}
-
                 <ImageBackground source={card.photo} style={styles.image} imageStyle={{ borderRadius: 10 }}>
-                <Text style={styles.name}>{card.name.first} {card.name.last}</Text>
+                  <View style={styles.textCard}>
+                    <Text style={styles.name}>{card.name.first} {card.name.last}</Text>
+                  </View>
                 </ImageBackground>
               </View>
             );
@@ -62,17 +63,21 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ data }) => {
 };
 
 const styles = StyleSheet.create({
+  imgbgconatiner: {
+    height: '90%'
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     width: viewportWidth,
-    backgroundColor: 'red'
+    // backgroundColor: 'red'
     // paddingRight: viewportWidth * .107, // This fixes the position of the caxrd being to right. Can't find out why. Crap fix.
   },
   swiperContainer: {
     width: viewportWidth,
     height: viewportHeight * 0.9,
+    // overflow: 'hidden'
   },
   card: {
     // width: viewportWidth,  // CAUTION This line, and the line below it was making the card hang to the right. Keep for caution.
@@ -83,12 +88,23 @@ const styles = StyleSheet.create({
     // width: viewportWidth * 1.2
   },
   image: {
+    flex: 1,
     width: '100%',
-    height: '80%', // This determines how much of the description space we see on the bottom of images.
+    height: '100%', // This determines how much of the description space we see on the bottom of images.
+  },
+  textCard: {
+    flex: 1,
+    alignContent: 'flex-start',
+    // backgroundColor: 'tan',
+    justifyContent: 'flex-end',
+
   },
   name: {
     fontSize: 18,
     fontWeight: 'bold',
+    height: '12%',
+    justifyContent: 'flex-end',
+     backgroundColor: 'rgba(0, 0, 0, 0.5)'
   },
   cell: {
     fontSize: 14,
