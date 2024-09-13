@@ -1,9 +1,14 @@
 import { mainThemeColor } from '@/constants/Colors';
 import React from 'react';
-import { View, Text, Image, StyleSheet, Dimensions, Button, ImageBackground } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions, ImageBackground } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
+
+import AntDesign from '@expo/vector-icons/AntDesign';
+
 
 interface User {
   name: { first: string; last: string };
@@ -39,20 +44,18 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ data }) => {
             console.log(card.photo);
             return (
               <View style={styles.imgbgconatiner}>
-                {/* <Image source={{ uri: card.picture.large }} style={styles.image} />
-                <Text style={styles.name}>{card.name.first} {card.name.last}</Text> */}
                 <ImageBackground source={card.photo} style={styles.image} imageStyle={{ borderRadius: 10 }}>
                   <View style={styles.textCard}>
                     <Text style={styles.name}>{card.name.first}, {card.dob.age}</Text>
                   </View>
-                  <View style={styles.btnContainer}>
-                    <View style={styles.button}>
-                      <Button title='button' />
-                    </View>
-                    <View style={styles.button}>
-                      <Button title='button' />
-                    </View>
-                  </View>
+                  <GestureHandlerRootView style={styles.btnContainer}>
+                    <TouchableOpacity style={styles.button} >
+                      <AntDesign name="heart" size={35} color="black" /> 
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.button} >
+                      <AntDesign name="heart" size={35} color="black" /> 
+                    </TouchableOpacity>
+                  </GestureHandlerRootView>
                 </ImageBackground>
               </View>
             );
@@ -131,7 +134,8 @@ const styles = StyleSheet.create({
     padding: 3,
     height: viewportHeight * 0.09,
     width: viewportWidth * 0.2,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   info: {
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
