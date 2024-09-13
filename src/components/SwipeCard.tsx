@@ -38,7 +38,7 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ data }) => {
             return (
               <View style={styles.card}>
                 <Image source={{ uri: card.picture.large }} style={styles.image} />
-                <Text style={styles.name}>{card.name.first} {card.name.last}</Text>
+                {/* <Text style={styles.name}>{card.name.first} {card.name.last}</Text> */}
               </View>
             );
           }}
@@ -74,12 +74,12 @@ const styles = StyleSheet.create({
     // height: viewportHeight * 0.9, 
     // paddingRight: viewportWidth * .107 // this centers the cards instead of them heading right.But it leaves a white line on the card.
     borderRadius: 10,
-    backgroundColor: "tan",
-    height: '80%'
+    backgroundColor: "transparant", // this makes it so I don't see anything under user images on swipe. I used to see the backgroundColor, white, tan, whatever.
+    height: viewportHeight
   },
   image: {
     width: '100%',
-    height: '100%', // This determines how much of the description space we see on the bottom of images.
+    height: '83%', // This determines how much of the description space we see on the bottom of images.
     borderRadius: 10,
   },
   name: {
