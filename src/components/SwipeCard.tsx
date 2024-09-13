@@ -6,8 +6,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface User {
   name: { first: string; last: string };
-  picture: { medium: string, large: string };
   cell?: string;
+  photo?: any
 }
 
 interface SwipeCardProps {
@@ -27,21 +27,21 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ data }) => {
           cards={cards}
           renderCard={(card) => {
             // Check if card is defined and has required properties
-            if (!card || !card.picture || !card.name) {
+            if (!card || !card.photo || !card.name) {
               return (
                 <View style={styles.card}>
                   <Text style={styles.name}>No Data Available</Text>
                 </View>
               );
             }
-
+            console.log(card.photo);
             return (
               <View style={styles.card}>
                 {/* <Image source={{ uri: card.picture.large }} style={styles.image} />
                 <Text style={styles.name}>{card.name.first} {card.name.last}</Text> */}
 
-                <ImageBackground source={{ uri: card.picture.large  }} style={styles.image} imageStyle={{ borderRadius: 10 }}>
-                  <Text>Test</Text>
+                <ImageBackground source={card.photo} style={styles.image} imageStyle={{ borderRadius: 10 }}>
+                <Text style={styles.name}>{card.name.first} {card.name.last}</Text>
                 </ImageBackground>
               </View>
             );

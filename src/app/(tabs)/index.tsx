@@ -4,8 +4,36 @@ import SwipeCard from '@/src/components/SwipeCard';
 
 interface User {
   name: { first: string; last: string };
-  picture: { medium: string, large: string };
+  photo?: string
 }
+
+// Just here for generating better photos during dev
+
+const photo1 = require('../../../assets/randomProfiles/uifaces_01.jpg');
+const photo2 = require('../../../assets/randomProfiles/uifaces_02.jpg');
+const photo3 = require('../../../assets/randomProfiles/uifaces_03.jpg');
+const photo4 = require('../../../assets/randomProfiles/uifaces_04.jpg');
+const photo5 = require('../../../assets/randomProfiles/uifaces_05.jpg');
+const photo6 = require('../../../assets/randomProfiles/uifaces_06.jpg');
+
+
+const photos = [
+  photo1,
+  photo2,
+  photo3,
+  photo4,
+  photo5,
+  photo6,
+];
+
+const getRandomPhotos = () => {
+  const randomIndex = Math.floor(Math.random() * photos.length);
+  return (photos)[randomIndex];
+};
+
+
+// Just here for generating better photos during dev
+
 
 const Linkup: React.FC = () => {
   const [usersData, setUsersData] = useState<User[]>([]);
@@ -21,7 +49,17 @@ const Linkup: React.FC = () => {
           throw new Error('Network Response was not okay...');
         }
         const jsonData = await response.json();
-        setUsersData(jsonData.results);
+
+        // Adding better photo vvv
+        const usersWithPhotos = jsonData.results.map((user: User) => ({
+          ...user,
+          photo: getRandomPhotos()
+        }))
+        // Adding better photos ^^^
+
+        // setUsersData(jsonData.results);
+        setUsersData(usersWithPhotos);
+
       } catch (err) {
         if (err instanceof Error) {
           console.log(err.message);
