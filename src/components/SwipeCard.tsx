@@ -1,14 +1,15 @@
 import { mainThemeColor } from '@/constants/Colors';
 import React from 'react';
-import { View, Text, Image, StyleSheet, Dimensions, ScrollView, ImageBackground } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions, Button, ImageBackground } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface User {
   name: { first: string; last: string };
   cell?: string;
   photo?: any,
-  dob: {age: string }
+  dob: { age: string }
 }
 
 interface SwipeCardProps {
@@ -43,7 +44,14 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ data }) => {
                 <ImageBackground source={card.photo} style={styles.image} imageStyle={{ borderRadius: 10 }}>
                   <View style={styles.textCard}>
                     <Text style={styles.name}>{card.name.first}, {card.dob.age}</Text>
-                    {/* <Text style={styles.info}>This is general information about user. Maybe add emojis as well.</Text> */}
+                  </View>
+                  <View style={styles.btnContainer}>
+                    <View style={styles.button}>
+                      <Button title='button' />
+                    </View>
+                    <View style={styles.button}>
+                      <Button title='button' />
+                    </View>
                   </View>
                 </ImageBackground>
               </View>
@@ -83,11 +91,8 @@ const styles = StyleSheet.create({
   },
   card: {
     // width: viewportWidth,  // CAUTION This line, and the line below it was making the card hang to the right. Keep for caution.
-    // height: viewportHeight * 0.9, 
     // paddingRight: viewportWidth * .1, // this centers the cards instead of them heading right.But it leaves a white line on the card.
     // backgroundColor: "transparant", // this makes it so I don't see anything under user images on swipe. I used to see the backgroundColor, white, tan, whatever.
-    // height: viewportHeight * 1.2,
-    // width: viewportWidth * 1.2
   },
   image: {
     alignItems: 'center', // this is what centers the user info on the image.
@@ -108,8 +113,25 @@ const styles = StyleSheet.create({
     color: '#fff',
     justifyContent: 'flex-end',
     width: viewportWidth * 0.8,
-    marginBottom: viewportHeight * .1,
+    marginBottom: viewportHeight * .001,
     // alignItems: 'center'
+  },
+  btnContainer: {
+    // backgroundColor: '#fff',
+    // flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: viewportHeight * 0.04,
+    // justifyContent: 'space-between'
+    width: viewportWidth * 0.7,
+  },
+  button: {
+    backgroundColor: 'tan',
+    borderRadius: 100,
+    padding: 3,
+    height: viewportHeight * 0.09,
+    width: viewportWidth * 0.2,
+    justifyContent: 'center'
   },
   info: {
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
