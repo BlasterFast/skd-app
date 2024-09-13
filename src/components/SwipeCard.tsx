@@ -7,6 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Foundation from '@expo/vector-icons/Foundation';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 
 interface User {
@@ -28,7 +29,7 @@ const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window'
 const SwipeCard: React.FC<SwipeCardProps> = ({ data }) => {
   const cards = data || [];
 
-  const swiperRef = useRef<Swiper>(null);
+  const swiperRef = useRef<Swiper<User>>(null);
 
   const handleSwipeLeft = () => {
     if (swiperRef.current) {
@@ -64,11 +65,15 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ data }) => {
               return (
                 <View style={styles.imgbgconatiner}>
                   <ImageBackground source={card.photo} style={styles.image} imageStyle={{ borderRadius: 10 }}>
+                    
                     <View style={styles.textCard}>
                       <Text style={styles.name}>{card.name.first}, {card.dob.age}</Text>
-                      <Text style={styles.city}>{card.location.city}</Text>
+                      <View style={styles.location}>
+                        <FontAwesome name="home" size={20} color="white" />
+                        <Text style={styles.city}>{card.location.city}</Text>
+                      </View>
                     </View>
-
+                
                     <View style={styles.btnContainer}>
                       <TouchableOpacity style={styles.buttonLeft} onPress={handleSwipeLeft}>
                         <Foundation name="x" size={35} color="red" />
@@ -77,6 +82,7 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ data }) => {
                         <AntDesign name="heart" size={30} color="green" />
                       </TouchableOpacity>
                     </View>
+
                   </ImageBackground>
                 </View>
               );
@@ -144,12 +150,17 @@ const styles = StyleSheet.create({
     marginBottom: viewportHeight * .001,
     // alignItems: 'center'
   },
+  location: {
+    flexDirection: 'row',
+    paddingLeft: viewportWidth * 0.05,
+  },
   city: {
     color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
     width: viewportWidth * 0.8,
-    marginBottom: viewportHeight * 0.03
+    marginBottom: viewportHeight * 0.03,
+    marginLeft: viewportWidth * 0.01
   },
   btnContainer: {
     // backgroundColor: '#fff',
