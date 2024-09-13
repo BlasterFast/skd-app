@@ -1,6 +1,6 @@
 import { mainThemeColor } from '@/constants/Colors';
 import React from 'react';
-import { View, Text, Image, StyleSheet, Dimensions, ScrollView } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions, ScrollView, ImageBackground } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -23,7 +23,7 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ data }) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.swiperContainer}>
         <Swiper
-          cardStyle={styles.card}
+          // cardStyle={styles.card}
           cards={cards}
           renderCard={(card) => {
             // Check if card is defined and has required properties
@@ -37,8 +37,12 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ data }) => {
 
             return (
               <View style={styles.card}>
-                <Image source={{ uri: card.picture.large }} style={styles.image} />
-                {/* <Text style={styles.name}>{card.name.first} {card.name.last}</Text> */}
+                {/* <Image source={{ uri: card.picture.large }} style={styles.image} />
+                <Text style={styles.name}>{card.name.first} {card.name.last}</Text> */}
+
+                <ImageBackground source={{ uri: card.picture.large  }} style={styles.image} imageStyle={{ borderRadius: 10 }}>
+                  <Text>Test</Text>
+                </ImageBackground>
               </View>
             );
           }}
@@ -63,6 +67,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: viewportWidth,
+    backgroundColor: 'red'
     // paddingRight: viewportWidth * .107, // This fixes the position of the caxrd being to right. Can't find out why. Crap fix.
   },
   swiperContainer: {
@@ -72,15 +77,14 @@ const styles = StyleSheet.create({
   card: {
     // width: viewportWidth,  // CAUTION This line, and the line below it was making the card hang to the right. Keep for caution.
     // height: viewportHeight * 0.9, 
-    // paddingRight: viewportWidth * .107 // this centers the cards instead of them heading right.But it leaves a white line on the card.
-    borderRadius: 10,
+    // paddingRight: viewportWidth * .1, // this centers the cards instead of them heading right.But it leaves a white line on the card.
     backgroundColor: "transparant", // this makes it so I don't see anything under user images on swipe. I used to see the backgroundColor, white, tan, whatever.
-    height: viewportHeight
+    height: viewportHeight * 1.2,
+    // width: viewportWidth * 1.2
   },
   image: {
     width: '100%',
-    height: '83%', // This determines how much of the description space we see on the bottom of images.
-    borderRadius: 10,
+    height: '80%', // This determines how much of the description space we see on the bottom of images.
   },
   name: {
     fontSize: 18,

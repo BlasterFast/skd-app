@@ -12,7 +12,7 @@ export default function TabLayout() {
 
 
   return (
-    <Tabs screenOptions={screenOptions}>
+    <Tabs screenOptions={screenOptions} >
       <Tabs.Screen
         name="sizzle"
         options={{
