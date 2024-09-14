@@ -35,7 +35,7 @@ export default function TabLayout() {
           title: 'LinkUp',
           // headerStyle: { backgroundColor: '#000' },
           // headerTitleStyle: { color: mainThemeColor },
-          tabBarIcon: ({ color }) => <AntDesign name="pluscircleo" size={24} color={color} />,
+          tabBarIcon: ({ color }) => <AntDesign name="pluscircle" size={24} color={color} />,
         }}
       />
 
